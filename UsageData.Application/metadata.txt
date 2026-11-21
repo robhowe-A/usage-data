@@ -1,0 +1,27 @@
+Project:      UsageData.Application
+Version:      1.0.0+e409229a56908835ba55960fb7eda86815e47f9d
+Author:       Robert Howell
+Copyright:    Copyright (c) 2026 Robert A. Howell
+Created:      2026-09-30
+Built:        2026-11-21 22:46 UTC
+Target:       .NETCoreApp,Version=v10.0
+Runtime:      .NET 10.0.14
+EF Provider:  MySql.EntityFrameworkCore
+DB Server:    8.4.9-azure
+Dependencies:
+  Microsoft.AspNetCore 10.0.0.0
+  Microsoft.AspNetCore.Hosting.Abstractions 10.0.0.0
+  Microsoft.AspNetCore.Http.Abstractions 10.0.0.0
+  Microsoft.AspNetCore.Http.Extensions 10.0.0.0
+  Microsoft.AspNetCore.Http.Results 10.0.0.0
+  Microsoft.AspNetCore.HttpsPolicy 10.0.0.0
+  Microsoft.AspNetCore.Routing 10.0.0.0
+  Microsoft.EntityFrameworkCore 10.0.12.0
+  Microsoft.EntityFrameworkCore.Relational 10.0.9.0
+  Microsoft.Extensions.Configuration 10.0.0.0
+  Microsoft.Extensions.Configuration.Abstractions 10.0.0.0
+  Microsoft.Extensions.Configuration.UserSecrets 10.0.0.0
+  Microsoft.Extensions.DependencyInjection.Abstractions 10.0.0.0
+  Microsoft.Extensions.Hosting.Abstractions 10.0.0.0
+  MySql.EntityFrameworkCore 26.7.0.0
+  UsageData.Domain 1.0.0.0

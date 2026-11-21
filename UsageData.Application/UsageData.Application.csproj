@@ -28,13 +28,13 @@
     <Content Include=".aiassistant\rules\project-architecture.md" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="UsageData.Domain\**" />
-    <Content Remove="UsageData.Domain\**" />
-    <EmbeddedResource Remove="UsageData.Domain\**" />
-    <None Remove="UsageData.Domain\**" />
+    <Compile Remove="..\UsageData.Domain\**" />
+    <Content Remove="..\UsageData.Domain\**" />
+    <EmbeddedResource Remove="..\UsageData.Domain\**" />
+    <None Remove="..\UsageData.Domain\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="UsageData.Domain\UsageData.Domain.csproj" />
+    <ProjectReference Include="..\UsageData.Domain\UsageData.Domain.csproj" />
   </ItemGroup>
 </Project>
