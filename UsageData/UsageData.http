@@ -1,0 +1,32 @@
+@UsageData_HostAddress = https://localhost:7187
+
+GET {{UsageData_HostAddress}}/usage/1
+Accept: application/json
+
+GET {{UsageData_HostAddress}}/usage/2
+Accept: application/json
+
+GET https://localhost:7187/usage
+Accept: application/json
+
+GET https://localhost:7187/usage/1
+Accept: application/json
+
+GET https://localhost:7187/usage/anonymous-users
+Accept: application/json
+
+GET https://localhost:7187/usage/anonymous-users/1
+Accept: application/json
+
+GET https://localhost:7187/usage/accessed-by
+Accept: application/json
+
+GET https://localhost:7187/usage/accessed-by/1/2
+Accept: application/json
+
+### TEST INCORRECT ENDPOINT
+GET {{UsageData_HostAddress}}/usage/a
+Accept: application/json
+
+GET {{UsageData_HostAddress}}/usage/%20
+Accept: application/json

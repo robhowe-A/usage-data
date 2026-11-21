@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <Authors>Robert Howell</Authors>
+    <Copyright>Copyright (c) 2026 Robert A. Howell</Copyright>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyMetadata Include="CreateDate" Value="2026-09-30" />
+    <AssemblyMetadata Include="BuildDate" Value="$([System.DateTime]::UtcNow.ToString('yyyy-MM-dd HH:mm'))" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>f95e0e3f-7b07-4e89-aa3f-079f817dd775</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.12" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="10.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include=".aiassistant\rules\project-architecture.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="UsageData.Domain\**" />
+    <Content Remove="UsageData.Domain\**" />
+    <EmbeddedResource Remove="UsageData.Domain\**" />
+    <None Remove="UsageData.Domain\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="UsageData.Domain\UsageData.Domain.csproj" />
+  </ItemGroup>
+</Project>

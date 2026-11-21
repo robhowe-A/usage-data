@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="UsageData.csproj" />
+  <Project Path="UsageData.Domain/UsageData.Domain.csproj" />
+</Solution>
