@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using UsageData.Application.Features;
 using UsageData.Data;
 using UsageData.Domain.Entities;
 using UsageData.Exceptions;
@@ -11,53 +12,41 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<UserDataContext>(dbContextOptionsBuilder =>
 {
-    var connectionString = builder.Configuration.GetConnectionString("MYSQL_CONNECTIONSTRING");
-    dbContextOptionsBuilder.UseMySQL(connectionString!, mySqlOptionsAction =>
+    var connectionString = builder.Configuration.GetConnectionString("MYSQL_CONNECTIONSTRING")
+                           ?? throw new InvalidOperationException("Missing connection string: MYSQL_CONNECTIONSTRING");
+        ;
+    dbContextOptionsBuilder.UseMySQL(connectionString, 
+        mySqlOptionsAction =>
+        {
+            if (!builder.Environment.IsStaging() && !builder.Environment.IsProduction()) return;
+
+            mySqlOptionsAction.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(30),
+                errorNumbersToAdd: null);
+            mySqlOptionsAction.CommandTimeout(30);
+        });
+    if (builder.Environment.IsDevelopment())
     {
-        mySqlOptionsAction.EnableRetryOnFailure(5);
-        mySqlOptionsAction.CommandTimeout(30);
-    });
+        dbContextOptionsBuilder.EnableDetailedErrors();
+        dbContextOptionsBuilder.EnableSensitiveDataLogging();
+    }
+    else
+    {
+        dbContextOptionsBuilder.EnableDetailedErrors(false);
+        dbContextOptionsBuilder.EnableSensitiveDataLogging(false);
+    }
 });
 
+builder.AddEnvironmentLogging();
+
 var app = builder.Build();
+await app.AddApplicationMigrations(builder);
 
 app.UseMiddleware<GlobalExceptionHandler>();
 app.UseHttpsRedirection();
 
-using (var scope = app.Services.CreateScope())
-{
-    var db  = scope.ServiceProvider.GetRequiredService<UserDataContext>();
-    var asm = Assembly.GetEntryAssembly()!;
-    string? Meta(string key) => asm.GetCustomAttributes<AssemblyMetadataAttribute>()
-        .FirstOrDefault(a => a.Key == key)?.Value;
-
-    var sb = new StringBuilder();
-    sb.AppendLine($"Project:      {app.Environment.ApplicationName}");
-    sb.AppendLine($"Version:      {asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion}");
-    sb.AppendLine($"Author:       {asm.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company}");
-    sb.AppendLine($"Copyright:    {asm.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright}");
-    sb.AppendLine($"Created:      {Meta("CreateDate") ?? "unknown"}");
-    sb.AppendLine($"Built:        {Meta("BuildDate")} UTC");
-    sb.AppendLine($"Target:       {asm.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName}");
-    sb.AppendLine($"Runtime:      {RuntimeInformation.FrameworkDescription}");
-    sb.AppendLine($"EF Provider:  {db.Database.ProviderName}");
-
-    try
-    {
-        db.Database.OpenConnection();
-        sb.AppendLine($"DB Server:    {db.Database.GetDbConnection().ServerVersion}");
-    }
-    catch (Exception ex) { sb.AppendLine($"DB Server:    unavailable ({ex.GetType().Name})"); }
-    finally { db.Database.CloseConnection(); }
-
-    sb.AppendLine("Dependencies:");
-    foreach (var r in asm.GetReferencedAssemblies()
-                 .Where(r => !r.Name!.StartsWith("System") && r.Name != "netstandard")
-                 .OrderBy(r => r.Name))
-        sb.AppendLine($"  {r.Name} {r.Version}");
-
-    File.WriteAllText("metadata.txt", sb.ToString());
-}
+app.LogEnvironmentMetadata();
 
 #region MinimalApi
 app.MapGet("/usage", async (UserDataContext dbContext, CancellationToken cancellationToken) =>

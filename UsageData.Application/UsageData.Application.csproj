@@ -36,10 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include=".aiassistant\rules\project-architecture.md" />
   </ItemGroup>
 
