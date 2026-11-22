@@ -1,9 +1,9 @@
 Project:      UsageData.Application
-Version:      1.0.0+ce4d7d1822722597cb2826943aac2b3967fd1d55
+Version:      1.0.0+d8e82700196c36bee7eba01091c6253f665f8175
 Author:       Robert Howell
 Copyright:    Copyright (c) 2026 Robert A. Howell
 Created:      2026-09-30
-Built:        2026-11-21 23:21 UTC
+Built:        2026-11-22 01:10 UTC
 Target:       .NETCoreApp,Version=v10.0
 Runtime:      .NET 10.0.14
 EF Provider:  MySql.EntityFrameworkCore

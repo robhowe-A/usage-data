@@ -1,4 +1,14 @@
 <Solution>
-  <Project Path="UsageData.Domain/UsageData.Domain.csproj" />
-  <Project Path="UsageData.Application/UsageData.Application.csproj" />
+  <Project Path="UsageData.Domain/UsageData.Domain.csproj">
+    <BuildType Solution="Developer|*" Project="Debug" />
+    <BuildType Solution="Staging|*" Project="Release" />
+  </Project>
+  <Configurations>
+    <BuildType Name="Developer" />
+    <BuildType Name="Staging" />
+  </Configurations>
+  <Project Path="UsageData.Application/UsageData.Application.csproj">
+    <BuildType Solution="Developer|*" Project="Debug" />
+    <BuildType Solution="Staging|*" Project="Release" />
+  </Project>
 </Solution>
