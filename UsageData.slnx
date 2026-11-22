@@ -7,6 +7,9 @@
     <BuildType Name="Developer" />
     <BuildType Name="Staging" />
   </Configurations>
+  <Project Path="UsageData.Application.Tests/UsageData.Application.Tests.csproj">
+    <BuildType Project="Debug" />
+  </Project>
   <Project Path="UsageData.Application/UsageData.Application.csproj">
     <BuildType Solution="Developer|*" Project="Debug" />
     <BuildType Solution="Staging|*" Project="Release" />

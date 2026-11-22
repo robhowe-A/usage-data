@@ -1,7 +1,3 @@
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
-using System.Text;
 using Microsoft.EntityFrameworkCore;
 using UsageData.Application.Features;
 using UsageData.Data;
@@ -12,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<UserDataContext>(dbContextOptionsBuilder =>
 {
-    var connectionString = builder.Configuration.GetConnectionString("MYSQL_CONNECTIONSTRING")
+    var connectionString = builder.Configuration["MYSQL_CONNECTIONSTRING"]
                            ?? throw new InvalidOperationException("Missing connection string: MYSQL_CONNECTIONSTRING");
         ;
     dbContextOptionsBuilder.UseMySQL(connectionString, 
@@ -41,7 +37,12 @@ builder.Services.AddDbContext<UserDataContext>(dbContextOptionsBuilder =>
 builder.AddEnvironmentLogging();
 
 var app = builder.Build();
-await app.AddApplicationMigrations(builder);
+
+var skipMigrationsForTests = builder.Configuration.GetValue<bool>("Testing:SkipMigrations");
+if (!skipMigrationsForTests)
+{
+    await app.AddApplicationMigrations(builder);
+}
 
 app.UseMiddleware<GlobalExceptionHandler>();
 app.UseHttpsRedirection();
@@ -49,6 +50,17 @@ app.UseHttpsRedirection();
 app.LogEnvironmentMetadata();
 
 #region MinimalApi
+
+var enableThrowEndpointForTests = builder.Configuration.GetValue<bool>("Testing:EnableThrowEndpoint");
+if (enableThrowEndpointForTests)
+{
+    app.MapGet("/__test/throw", () =>
+    {
+        throw new InvalidOperationException("Intentional test exception");
+    });
+}
+
+
 app.MapGet("/usage", async (UserDataContext dbContext, CancellationToken cancellationToken) =>
 {
     var usage = await dbContext.UserAgents

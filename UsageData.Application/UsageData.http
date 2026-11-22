@@ -1,15 +1,33 @@
 @UsageData_HostAddress = https://localhost:7187
 
+GET {{UsageData_HostAddress}}/usage
+Accept: application/json
+
 GET {{UsageData_HostAddress}}/usage/1
 Accept: application/json
 
 GET {{UsageData_HostAddress}}/usage/2
 Accept: application/json
 
+GET {{UsageData_HostAddress}}/usage/anonymous-users
+Accept: application/json
+
+GET {{UsageData_HostAddress}}/usage/anonymous-users/1
+Accept: application/json
+
+GET {{UsageData_HostAddress}}/usage/accessed-by
+Accept: application/json
+
+GET {{UsageData_HostAddress}}/usage/accessed-by/1/2
+Accept: application/json
+
 GET https://localhost:7187/usage
 Accept: application/json
 
 GET https://localhost:7187/usage/1
+Accept: application/json
+
+GET https://localhost:7187/usage/2
 Accept: application/json
 
 GET https://localhost:7187/usage/anonymous-users
