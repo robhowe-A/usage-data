@@ -1,21 +1,22 @@
 Project:      UsageData.Application
-Version:      1.0.0+50c34938a0eb235e95d3d8814ce33d91ba535331
+Version:      1.0.0+62642d73614ae72e90c7553d771208b662da4b78
 Author:       Robert Howell
 Copyright:    Copyright (c) 2026 Robert A. Howell
 Created:      2026-09-30
-Built:        2026-11-23 01:15 UTC
+Built:        2026-11-23 19:21 UTC
 Target:       .NETCoreApp,Version=v10.0
 Runtime:      .NET 10.0.14
 EF Provider:  MySql.EntityFrameworkCore
-DB Server:    unavailable (MySqlException)
+DB Server:    8.4.9-azure
 Dependencies:
   Microsoft.AspNetCore 10.0.0.0
   Microsoft.AspNetCore.Diagnostics 10.0.0.0
   Microsoft.AspNetCore.Hosting.Abstractions 10.0.0.0
   Microsoft.AspNetCore.Http.Abstractions 10.0.0.0
   Microsoft.AspNetCore.Http.Extensions 10.0.0.0
-  Microsoft.AspNetCore.Http.Results 10.0.0.0
   Microsoft.AspNetCore.HttpsPolicy 10.0.0.0
+  Microsoft.AspNetCore.Mvc 10.0.0.0
+  Microsoft.AspNetCore.Mvc.Core 10.0.0.0
   Microsoft.AspNetCore.Routing 10.0.0.0
   Microsoft.EntityFrameworkCore 10.0.12.0
   Microsoft.EntityFrameworkCore.Relational 10.0.9.0
@@ -23,7 +24,9 @@ Dependencies:
   Microsoft.Extensions.Configuration.Abstractions 10.0.0.0
   Microsoft.Extensions.Configuration.Binder 10.0.0.0
   Microsoft.Extensions.Configuration.UserSecrets 10.0.0.0
+  Microsoft.Extensions.DependencyInjection 10.0.0.0
   Microsoft.Extensions.DependencyInjection.Abstractions 10.0.0.0
+  Microsoft.Extensions.Hosting 10.0.0.0
   Microsoft.Extensions.Hosting.Abstractions 10.0.0.0
   Microsoft.Extensions.Logging 10.0.0.0
   Microsoft.Extensions.Logging.Abstractions 10.0.0.0

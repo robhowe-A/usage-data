@@ -1,50 +1,50 @@
 @UsageData_HostAddress = https://localhost:7187
 
-GET {{UsageData_HostAddress}}/usage
+GET {{UsageData_HostAddress}}/v1/user-agents/
 Accept: application/json
 
-GET {{UsageData_HostAddress}}/usage/1
+GET {{UsageData_HostAddress}}/v1/user-agents/1
 Accept: application/json
 
-GET {{UsageData_HostAddress}}/usage/2
+GET {{UsageData_HostAddress}}/v1/user-agents/2
 Accept: application/json
 
-GET {{UsageData_HostAddress}}/usage/anonymous-users
+GET {{UsageData_HostAddress}}/v1/anonymous-users
 Accept: application/json
 
-GET {{UsageData_HostAddress}}/usage/anonymous-users/1
+GET {{UsageData_HostAddress}}/v1/anonymous-users/172
 Accept: application/json
 
-GET {{UsageData_HostAddress}}/usage/accessed-by
+GET {{UsageData_HostAddress}}/v1/access-records/
 Accept: application/json
 
-GET {{UsageData_HostAddress}}/usage/accessed-by/1/2
+GET {{UsageData_HostAddress}}/v1/access-records/3/179
 Accept: application/json
 
-GET https://localhost:7187/usage
+GET https://localhost:7187/v1/user-agents
 Accept: application/json
 
-GET https://localhost:7187/usage/1
+GET https://localhost:7187/v1/user-agents/1
 Accept: application/json
 
-GET https://localhost:7187/usage/2
+GET https://localhost:7187/v1/user-agents/2
 Accept: application/json
 
-GET https://localhost:7187/usage/anonymous-users
+GET https://localhost:7187/v1/anonymous-users
 Accept: application/json
 
-GET https://localhost:7187/usage/anonymous-users/1
+GET https://localhost:7187/v1/anonymous-users/172
 Accept: application/json
 
-GET https://localhost:7187/usage/accessed-by
+GET https://localhost:7187/v1/access-records/
 Accept: application/json
 
-GET https://localhost:7187/usage/accessed-by/1/2
+GET https://localhost:7187/v1/access-records/3/179
 Accept: application/json
 
 ### TEST INCORRECT ENDPOINT
-GET {{UsageData_HostAddress}}/usage/a
+GET {{UsageData_HostAddress}}/v1/a
 Accept: application/json
 
-GET {{UsageData_HostAddress}}/usage/%20
+GET {{UsageData_HostAddress}}/v1/%20
 Accept: application/json
