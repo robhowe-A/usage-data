@@ -53,6 +53,7 @@ For each recommendation, cover: context fit, cost/complexity, scalability impact
 - Predictable performance: async end to end, query efficiency (projections, AsNoTracking, split queries, indexing, N+1 awareness), allocation-conscious hot paths, caching only when justified with an invalidation strategy.
 - Optimize for high-read log analysis and operational clarity (structured logging, correlation IDs, consistent event IDs).
 - EF Core + MySQL specifics matter: concurrency tokens, transaction/isolation behavior, migration safety, provider-specific quirks, connection pooling and resilience.
+- We need consistent, safe error responses that can be correlated with logs. Decision: RFC 9457 ProblemDetails via IExceptionHandler + IProblemDetailsService.
 
 ## ACCURACY RULES
 - For .NET 10 / C# 14 features, or anything version-specific, state your confidence. If you're unsure a feature or API exists as described, say so and tell me what to verify in the docs rather than guessing.

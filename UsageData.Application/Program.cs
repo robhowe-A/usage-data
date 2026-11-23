@@ -35,6 +35,12 @@ builder.Services.AddDbContext<UserDataContext>(dbContextOptionsBuilder =>
     }
 });
 
+builder.Host.UseDefaultServiceProvider(options =>
+{
+    options.ValidateOnBuild = true;
+    options.ValidateScopes = true;
+});
+
 builder.AddEnvironmentLogging();
 
 var app = builder.Build();

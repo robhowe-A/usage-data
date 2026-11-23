@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections;
+using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -69,6 +70,14 @@ public sealed class GlobalExceptionHandlerTests
         Assert.StartsWith("application/problem+json", contentType, StringComparison.OrdinalIgnoreCase);
         AssertNoStackTrace(body);
         AssertTraceIdPresent(body);
+    }
+
+    [Fact]
+    public async Task Staging_Returns404_Response_Not_ProblemJson()
+    {
+        var (statusCode, contentType, body) = await CallThrowEndpointAsync("Staging", "/__test/notfound");
+        Assert.Equal(HttpStatusCode.NotFound, statusCode);
+        Assert.False(string.Equals("application/problem+json", contentType, StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
