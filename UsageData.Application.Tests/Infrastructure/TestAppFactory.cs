@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace UsageData.Application.Tests.Infrastructure;
 
 public sealed class TestAppFactory(string environmentName) : WebApplicationFactory<Program>
 {
-    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    protected override IHost CreateHost(IHostBuilder builder)
     {
         builder.UseEnvironment(environmentName);
 
@@ -18,5 +18,7 @@ public sealed class TestAppFactory(string environmentName) : WebApplicationFacto
                 ["Testing:SkipMigrations"] = "true"
             });
         });
+
+        return base.CreateHost(builder);
     }
 }
