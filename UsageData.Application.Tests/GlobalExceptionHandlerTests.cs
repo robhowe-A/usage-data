@@ -1,13 +1,39 @@
 ﻿using System.Net;
 using System.Text.Json;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
 using UsageData.Application.Tests.Infrastructure;
 using Xunit;
+using UsageData.Application.Exceptions;
 
 namespace UsageData.Application.Tests;
 
 public sealed class GlobalExceptionHandlerTests
 {
+
+    [Fact]
+    public void Exactly_One_ExceptionHandler_Is_Registered_And_Resolvable()
+    {
+        using var factory = new TestAppFactory("Staging");
+
+        // Resolving the handler throws if DI can't build it (e.g. a leftover RequestDelegate parameter).
+        var handlers = factory.Services.GetServices<IExceptionHandler>().ToList();
+
+        Assert.Single(handlers);
+    }
+
+    [Fact]
+    public void ExceptionHandler_Resolves_From_Container()
+    {
+        using var factory = new TestAppFactory("Staging");
+
+        var handlers = factory.Services.GetServices<IExceptionHandler>().ToList();
+
+        Assert.Single(handlers);
+        Assert.IsType<GlobalExceptionHandler>(handlers[0]);
+    }
+
     [Fact]
     public async Task Development_Returns500_ProblemJson_NoStackTrace_AndTraceId()
     {

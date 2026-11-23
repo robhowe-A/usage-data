@@ -15,7 +15,7 @@
     <UserSecretsId>f95e0e3f-7b07-4e89-aa3f-079f817dd775</UserSecretsId>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition=" '$(Configuration)' == 'Developer' ">
     <Optimize>false</Optimize>
     <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
@@ -29,7 +29,7 @@
     <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">false</DebugSymbols>
     <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="MySql.EntityFrameworkCore" />
@@ -48,5 +48,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UsageData.Domain\UsageData.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="UsageData.Application.Tests" />
   </ItemGroup>
 </Project>
