@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -14,9 +13,9 @@ public sealed class GlobalExceptionHandlerTests
 {
 
     [Fact]
-    public void Exactly_One_ExceptionHandler_Is_Registered_And_Resolvable()
+    public async Task Exactly_One_ExceptionHandler_Is_Registered_And_Resolvable()
     {
-        using var factory = new TestAppFactory("Staging");
+        await using var factory = new TestAppFactory("Staging");
 
         // Resolving the handler throws if DI can't build it (e.g. a leftover RequestDelegate parameter).
         var handlers = factory.Services.GetServices<IExceptionHandler>().ToList();
@@ -25,9 +24,9 @@ public sealed class GlobalExceptionHandlerTests
     }
 
     [Fact]
-    public void ExceptionHandler_Resolves_From_Container()
+    public async Task ExceptionHandler_Resolves_From_Container()
     {
-        using var factory = new TestAppFactory("Staging");
+        await using var factory = new TestAppFactory("Staging");
 
         var handlers = factory.Services.GetServices<IExceptionHandler>().ToList();
 
@@ -93,7 +92,7 @@ public sealed class GlobalExceptionHandlerTests
     private static async Task<(HttpStatusCode StatusCode, string ContentType, string Body)> CallThrowEndpointAsync(
         string environmentName, string uriRelative, CancellationToken cancellationToken = default)
     {
-        using var factory = new TestAppFactory(environmentName);
+        await using var factory = new TestAppFactory(environmentName);
         using var client = factory.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = false });
 
         using var response = await client.GetAsync(uriRelative, cancellationToken);

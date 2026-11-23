@@ -1,15 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UsageData.Domain.Entities;
 
-namespace UsageData.Data;
+namespace UsageData.Application.Data;
 
-public class UserDataContext : DbContext
+public class UserDataContext(DbContextOptions<UserDataContext> options) : DbContext(options)
 {
-    public UserDataContext(DbContextOptions<UserDataContext> options)
-        : base(options)
-    {
-    }
-
     public DbSet<UserAgent> UserAgents { get; set; }
     public DbSet<AnonymousUser> AnonymousUsers { get; set; }
     public DbSet<AccessRecord> AccessRecords { get; set; }

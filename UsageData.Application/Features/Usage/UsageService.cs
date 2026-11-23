@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UsageData.Data;
+using UsageData.Application.Data;
 
 namespace UsageData.Application.Features.Usage;
 
@@ -13,10 +13,10 @@ public sealed class UsageService(UserDataContext db) : IUsageService
                 u.AgentId, u.UserAgentFull, u.Count, u.Browser, u.CreatedDate, u.BrowserVersion))
             .ToListAsync(cancellationToken);
 
-    public async Task<UserAgentDto?> GetUserAgentByIdAsync(int uid, CancellationToken cancellationToken) =>
+    public async Task<UserAgentDto?> GetUserAgentByIdAsync(int userAgentId, CancellationToken cancellationToken) =>
         await db.UserAgents
             .AsNoTracking()
-            .Where(u => u.AgentId == uid)
+            .Where(u => u.AgentId == userAgentId)
             .Select(u => new UserAgentDto(
                 u.AgentId, u.UserAgentFull, u.Count, u.Browser, u.CreatedDate, u.BrowserVersion))
             .FirstOrDefaultAsync(cancellationToken);

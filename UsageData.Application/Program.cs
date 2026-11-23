@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using UsageData.Application.Features;
 using UsageData.Application.Features.Usage;
-using UsageData.Data;
+using UsageData.Application.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +10,7 @@ builder.AddApplicationProblemDetails();
 builder.Services.AddDbContext<UserDataContext>(dbContextOptionsBuilder =>
 {
     var connectionString = builder.Configuration["MYSQL_CONNECTIONSTRING"]
-                           ?? throw new InvalidOperationException("Missing connection string: MYSQL_CONNECTIONSTRING");
+                           ?? throw new InvalidOperationException("Missing connection string: MYSQL_CONNECTIONSTRING")
         ;
     dbContextOptionsBuilder.UseMySQL(connectionString, 
         mySqlOptionsAction =>
@@ -46,6 +46,8 @@ builder.Host.UseDefaultServiceProvider(options =>
 builder.AddEnvironmentLogging();
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUsageService, UsageService>();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -58,7 +60,20 @@ if (!skipMigrationsForTests)
 }
 
 app.UseHttpsRedirection();
+
+app.UseSwagger(opt =>
+{
+    opt.RouteTemplate = "sandbox/{documentName}/openapi.json";
+});
+app.UseSwaggerUI(opt =>
+{
+    opt.RoutePrefix = "sandbox";
+    opt.SwaggerEndpoint("/sandbox/v1/openapi.json", "API Demo v1");
+    opt.EnableTryItOutByDefault(); 
+});
+
 app.MapControllers();
+
 app.LogEnvironmentMetadata();
 
 var enableThrowEndpointForTests = builder.Configuration.GetValue<bool>("Testing:EnableThrowEndpoint");

@@ -11,5 +11,4 @@ public class UserAgent
     public string? Browser { get; set; }
     public DateTime? CreatedDate { get; set; } = DateTime.Now;
     public string? BrowserVersion { get; set; }
-};
-
+}

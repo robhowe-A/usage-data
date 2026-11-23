@@ -1,9 +1,10 @@
-﻿using System.Reflection;
+﻿using System.Globalization;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using UsageData.Data;
+using UsageData.Application.Data;
 
 namespace UsageData.Application.Features;
 
@@ -54,15 +55,15 @@ internal static class EnvironmentExtensions
             var asm = Assembly.GetEntryAssembly()!;
 
             var sb = new StringBuilder();
-            sb.AppendLine($"Project:      {app.Environment.ApplicationName}");
-            sb.AppendLine($"Version:      {asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion}");
-            sb.AppendLine($"Author:       {asm.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company}");
-            sb.AppendLine($"Copyright:    {asm.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright}");
-            sb.AppendLine($"Created:      {Meta("CreateDate") ?? "unknown"}");
-            sb.AppendLine($"Built:        {Meta("BuildDate")} UTC");
-            sb.AppendLine($"Target:       {asm.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName}");
-            sb.AppendLine($"Runtime:      {RuntimeInformation.FrameworkDescription}");
-            sb.AppendLine($"EF Provider:  {db.Database.ProviderName}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Project:      {app.Environment.ApplicationName}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Version:      {asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Author:       {asm.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Copyright:    {asm.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Created:      {Meta("CreateDate") ?? "unknown"}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Built:        {Meta("BuildDate")} UTC");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Target:       {asm.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Runtime:      {RuntimeInformation.FrameworkDescription}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"EF Provider:  {db.Database.ProviderName}");
 
             try
             {

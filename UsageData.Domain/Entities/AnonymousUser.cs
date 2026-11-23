@@ -11,4 +11,4 @@ public class AnonymousUser
     public required string IpAddrHash { get; set; }
     public DateTime? CreatedDate { get; set; } = DateTime.Now;
     public DateTime? LastAccessed { get; set; } = DateTime.Now;
-};
+}

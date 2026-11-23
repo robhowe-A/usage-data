@@ -8,4 +8,4 @@ public class AccessRecord
     public DateTime? LastAccessed { get; set; } = DateTime.Now;
     public string? Site { get; set; }
     public string? URI { get; set; }
-};
+}

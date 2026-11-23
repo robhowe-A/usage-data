@@ -1,9 +1,9 @@
 Project:      UsageData.Application
-Version:      1.0.0+d992c77db3e53f1bd7420e4d9693c1f25ac1adf2
+Version:      1.0.0+a5c45740860c0d938edc0c305d097a5188f25613
 Author:       Robert Howell
 Copyright:    Copyright (c) 2026 Robert A. Howell
 Created:      2026-09-30
-Built:        2026-11-23 21:36 UTC
+Built:        2026-11-23 23:55 UTC
 Target:       .NETCoreApp,Version=v10.0
 Runtime:      .NET 10.0.14
 EF Provider:  MySql.EntityFrameworkCore
@@ -16,6 +16,7 @@ Dependencies:
   Microsoft.AspNetCore.Http.Extensions 10.0.0.0
   Microsoft.AspNetCore.HttpsPolicy 10.0.0.0
   Microsoft.AspNetCore.Mvc 10.0.0.0
+  Microsoft.AspNetCore.Mvc.ApiExplorer 10.0.0.0
   Microsoft.AspNetCore.Mvc.Core 10.0.0.0
   Microsoft.AspNetCore.Routing 10.0.0.0
   Microsoft.EntityFrameworkCore 10.0.12.0
@@ -32,4 +33,7 @@ Dependencies:
   Microsoft.Extensions.Logging.Abstractions 10.0.0.0
   Microsoft.Extensions.Logging.Console 10.0.0.0
   MySql.EntityFrameworkCore 26.7.0.0
+  Swashbuckle.AspNetCore.Swagger 11.0.1.0
+  Swashbuckle.AspNetCore.SwaggerGen 11.0.1.0
+  Swashbuckle.AspNetCore.SwaggerUI 11.0.1.0
   UsageData.Domain 1.0.0.0

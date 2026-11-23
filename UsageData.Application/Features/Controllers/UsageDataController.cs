@@ -21,11 +21,11 @@ public class UsageDataController(IUsageService service) : ControllerBase
         return Ok(userAgents);
     }
 
-    [HttpGet("user-agents/{uid:int}")]
+    [HttpGet("user-agents/{userAgentId:int}")]
     [ProducesResponseType<UserAgentDto>(StatusCodes.Status200OK)]
-    public async Task<ActionResult<UserAgentDto?>> GetUserAgentByIdAsync(int uid, CancellationToken cancellationToken)
+    public async Task<ActionResult<UserAgentDto?>> GetUserAgentByIdAsync(int userAgentId, CancellationToken cancellationToken)
     {
-        var userAgent = await service.GetUserAgentByIdAsync(uid, cancellationToken);
+        var userAgent = await service.GetUserAgentByIdAsync(userAgentId, cancellationToken);
 
         if (userAgent is null)
             return NotFound();

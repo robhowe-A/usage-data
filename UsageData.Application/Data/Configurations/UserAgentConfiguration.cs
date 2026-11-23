@@ -1,4 +1,4 @@
-﻿namespace UsageData.Data.Configurations;
+﻿namespace UsageData.Application.Data.Configurations;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
