@@ -2,9 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using UsageData.Application.Features;
 using UsageData.Data;
 using UsageData.Domain.Entities;
-using UsageData.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddApplicationProblemDetails();
 
 builder.Services.AddDbContext<UserDataContext>(dbContextOptionsBuilder =>
 {
@@ -38,13 +39,14 @@ builder.AddEnvironmentLogging();
 
 var app = builder.Build();
 
+app.UseApplicationProblemDetails();
+
 var skipMigrationsForTests = builder.Configuration.GetValue<bool>("Testing:SkipMigrations");
 if (!skipMigrationsForTests)
 {
     await app.AddApplicationMigrations(builder);
 }
 
-app.UseMiddleware<GlobalExceptionHandler>();
 app.UseHttpsRedirection();
 
 app.LogEnvironmentMetadata();

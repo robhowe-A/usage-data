@@ -1,15 +1,16 @@
 Project:      UsageData.Application
-Version:      1.0.0+c5312616ac41132c7e5e4c5fbd1dcd1550af9b11
+Version:      1.0.0+50c34938a0eb235e95d3d8814ce33d91ba535331
 Author:       Robert Howell
 Copyright:    Copyright (c) 2026 Robert A. Howell
 Created:      2026-09-30
-Built:        2026-11-22 16:43 UTC
+Built:        2026-11-23 01:15 UTC
 Target:       .NETCoreApp,Version=v10.0
 Runtime:      .NET 10.0.14
 EF Provider:  MySql.EntityFrameworkCore
-DB Server:    8.4.9-azure
+DB Server:    unavailable (MySqlException)
 Dependencies:
   Microsoft.AspNetCore 10.0.0.0
+  Microsoft.AspNetCore.Diagnostics 10.0.0.0
   Microsoft.AspNetCore.Hosting.Abstractions 10.0.0.0
   Microsoft.AspNetCore.Http.Abstractions 10.0.0.0
   Microsoft.AspNetCore.Http.Extensions 10.0.0.0
