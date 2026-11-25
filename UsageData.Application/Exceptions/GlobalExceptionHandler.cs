@@ -16,7 +16,7 @@ internal sealed partial class GlobalExceptionHandler(
         var request = httpContext.Request;
         var traceId = Activity.Current?.Id ?? httpContext.TraceIdentifier;
 
-        if (exception is OperationCanceledException && httpContext.RequestAborted.IsCancellationRequested)
+        if ((exception is OperationCanceledException || exception.InnerException is OperationCanceledException) && httpContext.RequestAborted.IsCancellationRequested)
         {   //The client disconnected
             LogRequestAborted(logger, request.Method, request.Path, traceId);
             httpContext.Response.StatusCode = StatusCodes.Status499ClientClosedRequest;

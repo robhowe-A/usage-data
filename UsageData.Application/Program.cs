@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using UsageData.Application.Features;
 using UsageData.Application.Features.Usage;
@@ -60,6 +61,37 @@ if (!skipMigrationsForTests)
 }
 
 app.UseHttpsRedirection();
+
+app.Use(async (context, next) =>
+{
+    var traceId = Activity.Current?.Id ?? context.TraceIdentifier;
+    var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+    var requestMethod = context.Request.Method;
+    var requestPath = context.Request.Path;
+    var responseStatus = context.Response;
+    var responseStatusCode = context.Response?.StatusCode;
+    
+    try
+    {
+        logger.LogInformation($"{DateTime.Now.ToLongDateString()} \"{requestMethod} {requestPath}\" {responseStatusCode} {traceId}");
+        await next(context);
+    }
+    // Intercept client-aborted cancellations before ExceptionHandlerMiddleware swallows them
+    catch (OperationCanceledException except) when (context.RequestAborted.IsCancellationRequested)
+    {
+        logger.LogInformation(
+            $"Client request cancel exception handled: \"{requestMethod} {requestPath}\" {responseStatusCode}");
+
+        if (!responseStatus.HasStarted)
+        {
+            context.Response?.StatusCode = StatusCodes.Status499ClientClosedRequest;
+        }
+        var exception = new Exception("exception...", except);
+
+        exception.Data.Add("traceId", traceId);
+        throw exception;
+    }
+});
 
 app.UseSwagger(opt =>
 {
